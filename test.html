@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3D Circular Carousel</title>
+  <style>
+    body {
+      background: #111;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+    }
+    .carousel {
+      position: relative;
+      width: 260px; height: 260px;
+      transform-style: preserve-3d;
+      animation: spin 10s linear infinite;
+    }
+    .carousel img {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 12px;
+      object-fit: cover;
+      left: 30px;
+      top: 30px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      transition: transform 0.5s ease;
+    }
+    .carousel img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Position each of the three images evenly around Y-axis */
+    .carousel img:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
+    .carousel img:nth-child(2) { transform: rotateY(120deg) translateZ(300px); }
+    .carousel img:nth-child(3) { transform: rotateY(240deg) translateZ(300px); }
+
+    @keyframes spin {
+      from { transform: rotateY(0deg) rotateX(10deg); }
+      to   { transform: rotateY(360deg) rotateX(10deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="carousel">
+    <img src="assets/gif/obito_tumbs_up.gif" alt="1">
+    <img src="assets/gif/goku.gif" alt="2">
+    <img src="assets/gif/obito_tumbs_up.gif" alt="3">
+  </div>
+</body>
+</html>
