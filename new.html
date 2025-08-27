@@ -125,7 +125,10 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+        }
+
+        nav li {
+            margin-left: 30px;
         }
 
         nav a {
@@ -533,6 +536,27 @@
             overflow: hidden;
         }
 
+        /* Animated gradient border for form */
+        /* .contact-form::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            background: linear-gradient(
+                45deg,
+                var(--primary),
+                var(--secondary),
+                var(--accent),
+                var(--primary)
+            );
+            z-index: -1;
+            background-size: 400%;
+            animation: borderAnimate 3s linear infinite;
+            opacity: 0.3;
+        } */
+
         .form-group {
             margin-bottom: 20px;
         }
@@ -888,24 +912,16 @@
         }
 
         /* ========== 3D IMAGE CAROUSEL ========== */
-        .carousel-container {
-            position: relative;
-            width: 100%;
-            padding: 100px 0;
-            margin: 0 auto;
-            overflow: hidden;
-            z-index: 1;
-        }
-
         .carousel {
             position: relative;
             width: 550px;
             height: 180px;
             transform-style: preserve-3d;
             animation: spin 10s linear infinite;
-            margin: 0 auto;
+            margin: 50px auto;
             display: block;
             z-index: 1;
+            padding-bottom: 50px;
         }
 
         .carousel img {
@@ -958,6 +974,8 @@
             .carousel {
                 width: 350px;
                 height: 120px;
+                margin-top: 40px;
+                padding-bottom: 40px;
             }
             .carousel img {
                 width: 100px;
@@ -975,6 +993,8 @@
             .carousel {
                 width: 280px;
                 height: 100px;
+                margin-top: 30px;
+                padding-bottom: 30px;
             }
             .carousel img {
                 width: 80px;
@@ -1022,12 +1042,10 @@
     </section>
 
     <!-- ========== 3D CAROUSEL SECTION ========== -->
-    <div class="carousel-container">
-        <div class="carousel">
-            <img src="assets/gif/obito_tumbs_up.gif" alt="Obito Uchiha giving a thumbs up">
-            <img src="assets/gif/goku.gif" alt="Goku powering up">
-            <img src="assets/gif/obito_tumbs_up.gif" alt="Obito Uchiha giving a thumbs up again">
-        </div>
+    <div class="carousel">
+        <img src="assets/gif/obito_tumbs_up.gif" alt="Obito Uchiha giving a thumbs up">
+        <img src="assets/gif/goku.gif" alt="Goku powering up">
+        <img src="assets/gif/obito_tumbs_up.gif" alt="Obito Uchiha giving a thumbs up again">
     </div>
 
     <!-- ========== SKILLS SECTION ========== -->
@@ -1292,27 +1310,25 @@
             
             // Create 16x16 grid
             for (let row = 0; row < 16; row++) {
-    const pixelRow = document.createElement('div');
-    pixelRow.classList.add('pixel-row');
-    
-    for (let col = 0; col < 16; col++) {  // Fixed this line
-        const pixel = document.createElement('div');
-        pixel.classList.add('pixel');
-        
-        // 30% chance to color each pixel
-        if (Math.random() > 0.7) {
-            pixel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                const pixelRow = document.createElement('div');
+                pixelRow.classList.add('pixel-row');
+                
+                for (let col = 0; col < 16; col++) {
+                    const pixel = document.createElement('div');
+                    pixel.classList.add('pixel');
+                    
+                    // 30% chance to color each pixel
+                    if (Math.random() > 0.7) {
+                        pixel.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    }
+                    
+                    pixelRow.appendChild(pixel);
+                }
+                
+                pixelArt.appendChild(pixelRow);
+            }
         }
-        
-        pixelRow.appendChild(pixel);
-    }
-    
-    pixelArt.appendChild(pixelRow);
-}
-        }
-        if (pixelArt) {
-            generatePixelArt();
-        }
+        generatePixelArt();
 
         // Animate pixel art by randomly changing colors
         setInterval(() => {
