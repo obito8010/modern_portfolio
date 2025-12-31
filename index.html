@@ -734,6 +734,91 @@
             color: var(--dark);
         }
 
+        /* ========== PROJECT UTILITY CLASSES ========== */
+        .hide {
+            display: none;
+        }
+
+        .show {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== PREVIEW MODAL STYLES ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 900px;
+            max-height: 80vh;
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
+            animation: zoomIn 0.3s ease;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 10001;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: var(--accent);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
         /* ========== CONTACT SECTION STYLES ========== */
         .contact-container {
             display: grid;
@@ -2199,83 +2284,111 @@
             <!-- Project 1 (Software) -->
             <div class="project-card" data-category="software">
                 <div class="project-image">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fd77dde6-2d8d-42f9-8add-49425c100eee.png"
-                        alt="Pixel Art Generator screenshot" />
+                    <img src="assets/savishkaara.png" alt="Savishkaara screenshot" />
                     <div class="project-tags">
-                        <span class="project-tag">React</span>
-                        <span class="project-tag">Canvas</span>
+                        <span class="project-tag">HTML</span>
+                        <span class="project-tag">CSS</span>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h3>Pixel Art Generator</h3>
-                    <p>An interactive tool that lets users create pixel artwork with custom brushes, colors, and export
-                        functionality.</p>
+                    <h3>Savishkaara</h3>
+                    <p>Developed website for technical event savishkaara for amrita kochi campus.</p>
                     <div class="project-links">
-                        <a href="#" class="live">Live Demo</a>
-                        <a href="#" class="code">View Code</a>
+                        <a href="javascript:void(0)" class="live"
+                            onclick="openModal('assets/videos/savishkaara_preview.gif')">Preview</a>
+                        <a href="https://github.com/obito8010/savishkaara" class="code">View Code</a>
                     </div>
                 </div>
             </div>
 
             <!-- Project 2 -->
             <!-- Project 2 (Software) -->
+            <!-- Project 2 (Software) -->
             <div class="project-card" data-category="software">
                 <div class="project-image">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1a11e564-64e6-4e6e-b069-4fb682482533.png"
-                        alt="Retro Space Adventure game screenshot" />
+                    <img src="assets/swiggy_ui_clone.png" alt="Swiggy UI Clone screenshot" />
                     <div class="project-tags">
-                        <span class="project-tag">JavaScript</span>
-                        <span class="project-tag">HTML5</span>
+                        <span class="project-tag">Figma</span>
+                        <span class="project-tag">UI/UX</span>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h3>Retro Space Adventure</h3>
-                    <p>A browser-based retro-style game with pixel graphics, physics, and responsive controls.</p>
+                    <h3>Swiggy UI</h3>
+                    <p>Created a Swiggy UI clone in Figma, designing multiple screens with consistent layouts,
+                        typography, and reusable assets to simulate a real food-delivery application.</p>
                     <div class="project-links">
-                        <a href="#" class="live">Play Demo</a>
-                        <a href="#" class="code">View Code</a>
+                        <a href="https://www.figma.com/proto/DbZi9C1VOJ4PI2PIrVO8l7/swiggy_Assignment?node-id=37-276&t=8FysV74g6IotIG7f-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=7%3A127&show-proto-sidebar=1"
+                            class="live">Play Demo</a>
+                        <a href="https://www.figma.com/design/DbZi9C1VOJ4PI2PIrVO8l7/swiggy_Assignment?node-id=37-276&t=rLIBwnKsc1Nkm6B2-1"
+                            class="code">View Code</a>
                     </div>
                 </div>
             </div>
 
             <!-- Project 3 -->
             <!-- Project 3 (Software) -->
+            <!-- Project 3 (Software) -->
             <div class="project-card" data-category="software">
                 <div class="project-image">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fafd6018-9f81-4cae-b872-b183db9c33bc.png"
-                        alt="Portfolio Concept screenshot" />
+                    <img src="assets/collaborative_paint_app.png" alt="Collaborative Paint App screenshot" />
                     <div class="project-tags">
-                        <span class="project-tag">CSS3</span>
-                        <span class="project-tag">GSAP</span>
+                        <span class="project-tag">React</span>
+                        <span class="project-tag">Express</span>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h3>Portfolio Concept</h3>
-                    <p>A cutting-edge portfolio template featuring advanced animations and interactions.</p>
+                    <h3>Collaborative Paint App</h3>
+                    <p>Developed a collaborative paint app where multiple people can draw together using websocket with
+                        ai features.</p>
                     <div class="project-links">
-                        <a href="#" class="live">View Site</a>
-                        <a href="#" class="code">View Code</a>
+                        <a href="javascript:void(0)" class="live"
+                            onclick="openModal('assets/videos/placeholder.gif')">Preview</a>
+                        <a href="https://github.com/obito8010/Collaborative-Paint-App" class="code">View Code</a>
                     </div>
                 </div>
             </div>
 
             <!-- Project 4 -->
             <!-- Project 4 (Software) -->
+            <!-- Project 4 -->
+            <!-- Project 4 (Software) -->
             <div class="project-card" data-category="software">
                 <div class="project-image">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/13e6cdd7-8012-49f1-ace3-e0adb81cf41e.png"
-                        alt="Audio Visualizer screenshot" />
+                    <img src="assets/docbuddy.png" alt="DocBuddy screenshot" />
                     <div class="project-tags">
-                        <span class="project-tag">Web Audio</span>
-                        <span class="project-tag">Canvas</span>
+                        <span class="project-tag">Flutter</span>
+                        <span class="project-tag">Dart</span>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h3>Audio Visualizer</h3>
-                    <p>Music visualization that translates audio frequencies into dynamic pixel patterns.</p>
+                    <h3>DocBuddy</h3>
+                    <p>Flutter based Pocket doctor app with chatbot, voice interaction, and gamified water and
+                        medication reminders.</p>
                     <div class="project-links">
-                        <a href="#" class="live">Try It Out</a>
-                        <a href="#" class="code">View Code</a>
+                        <a href="javascript:void(0)" class="live"
+                            onclick="openModal('preview-text:Preview available soon')">Preview</a>
+                        <a href="https://github.com/obito8010/DocBuddyNew" class="code">View Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5 (Software - New) -->
+            <div class="project-card" data-category="software">
+                <div class="project-image">
+                    <img src="assets/dreambuilder.png" alt="Dream Builder screenshot" />
+                    <div class="project-tags">
+                        <span class="project-tag">Django</span>
+                        <span class="project-tag">Android Studio</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Dream Builder</h3>
+                    <p>Cross-platform web and Android app for work assignment, progress tracking, and dealer-based
+                        material management.</p>
+                    <div class="project-links">
+                        <a href="javascript:void(0)" class="live"
+                            onclick="openModal('preview-text:Preview available soon stay tuned')">Preview</a>
+                        <a href="https://github.com/obito8010/DreamBuilder" class="code">View Code</a>
                     </div>
                 </div>
             </div>
@@ -2283,39 +2396,41 @@
             <!-- AI & ML Projects -->
             <div class="project-card" data-category="ai-ml">
                 <div class="project-image">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fd77dde6-2d8d-42f9-8add-49425c100eee.png"
-                        alt="AI Image Generator" />
+                    <img src="assets/consumer_complaint.png" alt="Consumer Complaint Classification System" />
                     <div class="project-tags">
                         <span class="project-tag">Python</span>
-                        <span class="project-tag">TensorFlow</span>
+                        <span class="project-tag">Streamlit</span>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h3>Neural Style Transfer</h3>
-                    <p>Deep learning model that applies artistic styles to ordinary photos using convolutional neural
-                        networks.</p>
+                    <h3>Consumer Complaint Classification System</h3>
+                    <p>Built a machine learning solution to classify consumer complaint texts into four categories using
+                        TF-IDF and
+                        Logistic Regression.</p>
                     <div class="project-links">
-                        <a href="#" class="live">View Demo</a>
-                        <a href="#" class="code">View Code</a>
+                        <a href="javascript:void(0)" class="live"
+                            onclick="openModal('preview-text:Preview available soon')">Preview</a>
+                        <a href="https://github.com/obito8010/kaiburr-text-classification" class="code">View Code</a>
                     </div>
                 </div>
             </div>
 
             <div class="project-card" data-category="ai-ml">
                 <div class="project-image">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1a11e564-64e6-4e6e-b069-4fb682482533.png"
-                        alt="Chatbot" />
+                    <img src="assets/bangalore_housing.png" alt="Bangalore House Price Prediction System" />
                     <div class="project-tags">
-                        <span class="project-tag">NLP</span>
-                        <span class="project-tag">PyTorch</span>
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Streamlit</span>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h3>Smart Assistant Bot</h3>
-                    <p>Context-aware conversational AI capable of handling complex queries and task automation.</p>
+                    <h3>Bangalore House Price Prediction System</h3>
+                    <p>Developed a Bangalore house price prediction system using machine learning, based on location,
+                        area, and housing features.</p>
                     <div class="project-links">
-                        <a href="#" class="live">Chat Now</a>
-                        <a href="#" class="code">View Code</a>
+                        <a href="javascript:void(0)" class="live"
+                            onclick="openModal('preview-text:Preview available soon')">Live Preview</a>
+                        <a href="https://github.com/obito8010/House_Price_Prediction" class="code">View Code</a>
                     </div>
                 </div>
             </div>
@@ -2323,42 +2438,25 @@
             <!-- Cyber Security Projects -->
             <div class="project-card" data-category="cyber-security">
                 <div class="project-image">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fafd6018-9f81-4cae-b872-b183db9c33bc.png"
-                        alt="Network Scanner" />
+                    <img src="assets/phishing_url.png" alt="Phishing URL Detection" />
                     <div class="project-tags">
-                        <span class="project-tag">Python</span>
-                        <span class="project-tag">Networking</span>
+                        <span class="project-tag">Flask</span>
+                        <span class="project-tag">ML</span>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h3>Vulnerability Scanner</h3>
-                    <p>Automated tool for detecting common security loopholes and misconfigurations in network
-                        infrastructure.</p>
+                    <h3>Phishing URL Detection using ML</h3>
+                    <p>Phishing URL Detection System is a web-based application that analyzes user-entered URLs and
+                        classifies them as safe or phishing using machine learning techniques.</p>
                     <div class="project-links">
-                        <a href="#" class="live">View Demo</a>
+                        <a href="javascript:void(0)" class="live"
+                            onclick="openModal('preview-text:Preview available soon')">Preview</a>
                         <a href="#" class="code">View Code</a>
                     </div>
                 </div>
             </div>
 
-            <div class="project-card" data-category="cyber-security">
-                <div class="project-image">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/13e6cdd7-8012-49f1-ace3-e0adb81cf41e.png"
-                        alt="Encryption Tool" />
-                    <div class="project-tags">
-                        <span class="project-tag">Cryptography</span>
-                        <span class="project-tag">C++</span>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h3>SecureFile Encryptor</h3>
-                    <p>Advanced file encryption utility using AES-256 algorithm with custom key management.</p>
-                    <div class="project-links">
-                        <a href="#" class="live">Download</a>
-                        <a href="#" class="code">View Code</a>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </section>
 
@@ -2430,18 +2528,25 @@
                     </div>
                 </div>
             </div>
-            <form class="contact-form">
+            <form class="contact-form" action="https://formsubmit.co/chinmay.saseendran@gmail.com" method="POST">
+                <!-- Honeycomb security -->
+                <input type="text" name="_honey" style="display:none">
+                <!-- Disable Captcha -->
+                <input type="hidden" name="_captcha" value="false">
+                <!-- Next page redirect (optional, currently staying on page or default) -->
+                <!-- <input type="hidden" name="_next" value="https://chinmay-portfolio.com/thanks.html"> -->
+
                 <div class="form-group">
                     <label for="name">Your Name</label>
-                    <input type="text" id="name" placeholder="Enter your name">
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Your Email</label>
-                    <input type="email" id="email" placeholder="Enter your email">
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group">
                     <label for="message">Your Message</label>
-                    <textarea id="message" placeholder="Tell me about your project"></textarea>
+                    <textarea id="message" name="message" placeholder="Tell me about your project" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Send Message</button>
             </form>
@@ -2462,6 +2567,17 @@
 
     <!-- ========== DYNAMIC PIXEL ART ========== -->
     <!-- <div class="pixel-art" id="pixelArt"></div> -->
+
+    <!-- ========== PREVIEW MODAL ========== -->
+    <div id="previewModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <img id="previewImage" src="" alt="Project Preview">
+            <div id="previewText"
+                style="display: none; padding: 40px; text-align: center; color: var(--accent); font-size: 24px; font-weight: bold;">
+            </div>
+        </div>
+    </div>
 
     <!-- ========== CHATBOT ========== -->
     <div class="chat-widget">
@@ -2949,6 +3065,42 @@
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(setupMarquee, 200);
         });
+
+        // ========== PREVIEW MODAL LOGIC ==========
+        const modal = document.getElementById("previewModal");
+        const modalImg = document.getElementById("previewImage");
+        const modalText = document.getElementById("previewText");
+        const span = document.getElementsByClassName("close-modal")[0];
+
+        function openModal(content) {
+            modal.style.display = "flex";
+
+            if (content.startsWith("preview-text:")) {
+                // Show text
+                modalImg.style.display = "none";
+                modalText.style.display = "block";
+                modalText.innerText = content.replace("preview-text:", "");
+                modalImg.src = "";
+            } else {
+                // Show image
+                modalImg.style.display = "block";
+                modalText.style.display = "none";
+                modalImg.src = content;
+            }
+        }
+
+        span.onclick = function () {
+            modal.style.display = "none";
+            modalImg.src = ""; // Clear source
+        }
+
+        // Close modal when clicking outside the image
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                modalImg.src = "";
+            }
+        }
     </script>
 </body>
 
