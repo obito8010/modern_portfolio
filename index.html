@@ -83,8 +83,7 @@
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
-            perspective: 1000px;
-            /* For 3D effects */
+            /* perspective: 1000px; - REMOVED to fix modal position:fixed issue */
         }
 
         /* ========== BACKGROUND EFFECTS ========== */
@@ -2116,6 +2115,149 @@
                 display: none;
             }
         }
+
+        /* ========== GAME SECTION ========== */
+        #game-section {
+            text-align: center;
+            padding: 100px 5%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .game-preview-btn {
+            padding: 15px 40px;
+            font-size: 24px;
+            background-color: var(--accent);
+            color: var(--dark);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
+            transition: all 0.3s ease;
+            animation: pulse-btn 2s infinite;
+            margin-top: 30px;
+        }
+
+        .game-preview-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.8);
+        }
+
+        @keyframes pulse-btn {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Game Modal */
+        .game-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .game-modal.active {
+            opacity: 1;
+        }
+
+        .game-container {
+            position: relative;
+            width: 400px;
+            /* Fixed width for Flappy Bird style */
+            height: 600px;
+            background-color: #70c5ce;
+            /* Sky blue */
+            border: 4px solid var(--accent);
+            border-radius: 10px;
+            overflow: hidden;
+            transform: scale(0.8);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-modal.active .game-container {
+            transform: scale(1);
+        }
+
+        #gameCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .game-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px black;
+            pointer-events: none;
+            width: 100%;
+        }
+
+        .game-overlay h2 {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+        }
+
+        .game-overlay p {
+            font-size: 20px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .game-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .game-close-btn:hover {
+            background: rgba(255, 0, 0, 0.7);
+        }
+
+        @media (max-width: 500px) {
+            .game-container {
+                width: 95%;
+                height: 80vh;
+            }
+        }
     </style>
 
     <!-- ========== HERO SECTION ========== -->
@@ -2264,11 +2406,28 @@
         </div>
     </section>
 
+    <!-- ========== GAME SECTION ========== -->
+    <section id="game-section">
+        <div class="section-header">
+            <h2>Ninja Flappy Adventure</h2>
+            <p>Help Obito navigate through the obstacles!</p>
+        </div>
+
+        <div style="display: flex; justify-content: center;">
+            <div class="pixel-art-preview" style="width: 100px; height: 100px; animation: bounce 2s infinite;">
+                <img src="assets/obito_flappy.png" alt="Obito Pixel" style="width: 100%; image-rendering: pixelated;">
+            </div>
+        </div>
+
+        <button class="game-preview-btn" id="openGameBtn">PLAY GAME</button>
+    </section>
+
+
+
     <!-- ========== PROJECTS SECTION ========== -->
     <section id="projects">
         <div class="section-header">
             <h2>Recent Projects</h2>
-            <p>Showcase of my best work</p>
         </div>
 
         <!-- Category Navigation -->
@@ -2568,16 +2727,7 @@
     <!-- ========== DYNAMIC PIXEL ART ========== -->
     <!-- <div class="pixel-art" id="pixelArt"></div> -->
 
-    <!-- ========== PREVIEW MODAL ========== -->
-    <div id="previewModal" class="modal">
-        <span class="close-modal">&times;</span>
-        <div class="modal-content">
-            <img id="previewImage" src="" alt="Project Preview">
-            <div id="previewText"
-                style="display: none; padding: 40px; text-align: center; color: var(--accent); font-size: 24px; font-weight: bold;">
-            </div>
-        </div>
-    </div>
+
 
     <!-- ========== CHATBOT ========== -->
     <div class="chat-widget">
@@ -2603,6 +2753,29 @@
                 <button class="chat-send" id="chatSend">
                     <i class="fas fa-paper-plane"></i>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PREVIEW MODAL ========== -->
+    <div id="previewModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <img id="previewImage" src="" alt="Project Preview">
+            <div id="previewText"
+                style="display: none; padding: 40px; text-align: center; color: var(--accent); font-size: 24px; font-weight: bold;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Modal -->
+    <div class="game-modal" id="gameModal">
+        <div class="game-container">
+            <button class="game-close-btn" id="closeGameBtn">&times;</button>
+            <canvas id="gameCanvas" width="400" height="600"></canvas>
+            <div class="game-overlay" id="gameOverlay">
+                <h2 id="msgHeading">Tap to Start</h2>
+                <p id="msgScore"></p>
             </div>
         </div>
     </div>
@@ -3101,6 +3274,390 @@
                 modalImg.src = "";
             }
         }
+
+        // ========== NINJA RUNNER GAME LOGIC (EASIER + COINS) ==========
+        const gameModal = document.getElementById('gameModal');
+        const openGameBtn = document.getElementById('openGameBtn');
+        const closeGameBtn = document.getElementById('closeGameBtn');
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const gameOverlay = document.getElementById('gameOverlay');
+        const msgHeading = document.getElementById('msgHeading');
+        const msgScore = document.getElementById('msgScore');
+
+        // Game Variables
+        let frames = 0;
+        let gameState = 'getReady'; // 'getReady', 'playing', 'gameOver'
+        let loopId;
+        const GROUND_Y = canvas.height - 20; // 20px is fg height
+
+        // Load Sprite
+        const sprite = new Image();
+        sprite.src = 'assets/obito_flappy.png';
+
+        // Obito Runner Object
+        const obito = {
+            x: 50,
+            y: 300,
+            w: 60,
+            h: 60,
+            radius: 20,
+
+            frame: 0,
+            velocity: 0,
+            gravity: 0.5,
+            jumpStrength: 11,
+            jumpCount: 0, // Track jumps
+
+            draw: function () {
+                if (sprite.complete) {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    if (gameState === 'playing' && this.y >= GROUND_Y - this.h / 2 - 1) {
+                        ctx.rotate(Math.sin(frames * 0.2) * 0.1);
+                    }
+                    ctx.drawImage(sprite, -this.w / 2, -this.h / 2, this.w, this.h);
+                    ctx.restore();
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = "orange";
+                    ctx.fill();
+                    ctx.closePath();
+                }
+            },
+
+            jump: function () {
+                // Double jump logic
+                if (this.jumpCount < 2) {
+                    this.velocity = -this.jumpStrength;
+                    this.jumpCount++;
+                }
+            },
+
+            update: function () {
+                if (gameState == 'getReady') {
+                    this.y = (GROUND_Y - this.h / 2) - 10 + Math.cos(frames / 10) * 5;
+                    this.velocity = 0;
+                    this.jumpCount = 0;
+                } else {
+                    this.velocity += this.gravity;
+                    this.y += this.velocity;
+
+                    if (this.y + this.h / 2 >= GROUND_Y) {
+                        this.y = GROUND_Y - this.h / 2;
+                        this.velocity = 0;
+                        this.jumpCount = 0; // Reset jump on ground
+                    }
+                }
+            },
+            reset: function () {
+                this.velocity = 0;
+                this.y = GROUND_Y - this.h / 2;
+                this.jumpCount = 0;
+            }
+        };
+
+        // Coins
+        const coins = {
+            position: [],
+            w: 30,
+            h: 30,
+            dx: 4,
+
+            draw: function () {
+                for (let i = 0; i < this.position.length; i++) {
+                    let c = this.position[i];
+                    ctx.fillStyle = "#FFD700";
+                    ctx.beginPath();
+                    ctx.arc(c.x, c.y, this.w / 2, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.strokeStyle = "#F39C12";
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    ctx.fillStyle = "#FFF";
+                    ctx.font = "20px Arial";
+                    ctx.fillText("$", c.x - 6, c.y + 7);
+                }
+            },
+
+            update: function () {
+                if (gameState !== 'playing') return;
+
+                // Spawn coins
+                if (frames % 100 == 0) {
+                    let isAir = Math.random() > 0.5;
+                    this.position.push({
+                        x: canvas.width + 50,
+                        y: isAir ? GROUND_Y - 90 : GROUND_Y - 40,
+                        collected: false
+                    });
+                }
+
+                for (let i = 0; i < this.position.length; i++) {
+                    let c = this.position[i];
+                    c.x -= this.dx;
+
+                    if (c.x + this.w < 0) {
+                        this.position.shift();
+                        i--;
+                        continue;
+                    }
+
+                    // Collision
+                    if (!c.collected) {
+                        let dx = obito.x - c.x;
+                        let dy = obito.y - c.y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < obito.radius + this.w / 2 + 10) {
+                            c.collected = true;
+                            score.value += 5; // Bonus for coins
+                            this.position.splice(i, 1);
+                            i--;
+                        }
+                    }
+                }
+            },
+
+            reset: function () {
+                this.position = [];
+            }
+        };
+
+        // Obstacles
+        const obstacles = {
+            position: [],
+            dx: 4,
+
+            draw: function () {
+                for (let i = 0; i < this.position.length; i++) {
+                    let p = this.position[i];
+
+                    if (p.type === 'spike') {
+                        ctx.fillStyle = "#e74c3c";
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, GROUND_Y);
+                        ctx.lineTo(p.x + p.w / 2, GROUND_Y - p.h);
+                        ctx.lineTo(p.x + p.w, GROUND_Y);
+                        ctx.fill();
+                    } else if (p.type === 'rock') {
+                        ctx.fillStyle = "#7f8c8d";
+                        ctx.beginPath();
+                        ctx.arc(p.x + p.w / 2, GROUND_Y - p.h / 2, p.h / 2, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else if (p.type === 'block') {
+                        ctx.fillStyle = "#8e44ad";
+                        ctx.fillRect(p.x, GROUND_Y - p.h, p.w, p.h);
+                    }
+                }
+            },
+
+            update: function () {
+                if (gameState !== 'playing') return;
+
+                // Add new obstacle - Increased spacing
+                if (frames % 150 == 0) {
+                    let typeRand = Math.random();
+                    let type = 'spike';
+                    let h = 50;
+                    let w = 40;
+
+                    if (typeRand < 0.33) {
+                        type = 'rock';
+                        h = 40; w = 40;
+                    } else if (typeRand < 0.66) {
+                        type = 'block';
+                        h = 45; w = 45;
+                    }
+
+                    this.position.push({
+                        x: canvas.width,
+                        y: GROUND_Y,
+                        w: w,
+                        h: h,
+                        type: type
+                    });
+                }
+
+                for (let i = 0; i < this.position.length; i++) {
+                    let p = this.position[i];
+                    p.x -= this.dx;
+
+                    if (p.x + p.w <= 0) {
+                        this.position.shift();
+                        score.value += 1;
+                        score.best = Math.max(score.value, score.best);
+                        localStorage.setItem('ninja_runner_best', score.best);
+                        i--;
+                    }
+
+                    // Collision
+                    let obsRect = {
+                        x: p.x + 5,
+                        y: GROUND_Y - p.h + 5,
+                        w: p.w - 10,
+                        h: p.h - 5
+                    };
+
+                    if (obito.x + obito.radius - 12 > obsRect.x &&
+                        obito.x - obito.radius + 12 < obsRect.x + obsRect.w &&
+                        obito.y + obito.h / 2 - 5 > obsRect.y) {
+
+                        gameState = 'gameOver';
+                        gameOver();
+                    }
+                }
+            },
+
+            reset: function () {
+                this.position = [];
+            }
+        };
+
+        // Background / Foreground
+        const bg = {
+            draw: function () {
+                ctx.fillStyle = "#87CEEB";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Sun
+                ctx.fillStyle = "#FFD700";
+                ctx.beginPath();
+                ctx.arc(350, 50, 30, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Mountains
+                ctx.fillStyle = "#2c3e50";
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.height);
+                ctx.lineTo(100, canvas.height - 100);
+                ctx.lineTo(250, canvas.height);
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.moveTo(200, canvas.height);
+                ctx.lineTo(350, canvas.height - 150);
+                ctx.lineTo(500, canvas.height);
+                ctx.fill();
+            }
+        };
+
+        const fg = {
+            h: 20,
+            draw: function () {
+                ctx.fillStyle = "#27ae60";
+                ctx.fillRect(0, canvas.height - this.h, canvas.width, this.h);
+                ctx.fillStyle = "#2ecc71";
+                ctx.fillRect(0, canvas.height - this.h, canvas.width, 5);
+            }
+        };
+
+        // Score
+        const score = {
+            best: localStorage.getItem('ninja_runner_best') || 0,
+            value: 0,
+
+            draw: function () {
+                ctx.fillStyle = "#FFF";
+                ctx.strokeStyle = "#000";
+
+                if (gameState == 'playing') {
+                    ctx.lineWidth = 2;
+                    ctx.font = "30px Courier New";
+                    ctx.fillText("Score: " + this.value, 15, 40);
+                    ctx.strokeText("Score: " + this.value, 15, 40);
+                }
+            },
+
+            reset: function () {
+                this.value = 0;
+            }
+        };
+
+        // Game Loop
+        function loop() {
+            bg.draw();
+            obstacles.draw();
+            coins.draw();
+            obito.draw();
+            fg.draw();
+            score.draw();
+
+            obito.update();
+            obstacles.update();
+            coins.update();
+
+            frames++;
+            loopId = requestAnimationFrame(loop);
+        }
+
+        function initGame() {
+            obito.reset();
+            obstacles.reset();
+            coins.reset();
+            score.reset();
+            frames = 0;
+            gameState = 'getReady';
+            loopId = requestAnimationFrame(loop);
+
+            gameOverlay.style.display = 'block';
+            msgHeading.innerText = "Get Ready!";
+            msgScore.innerText = "Tap/Space to Jump";
+        }
+
+        function gameOver() {
+            gameOverlay.style.display = 'block';
+            msgHeading.innerText = "Game Over";
+            msgScore.innerText = `Score: ${score.value} | Best: ${score.best}\nClick to Restart`;
+        }
+
+        function clickHandler() {
+            switch (gameState) {
+                case 'getReady':
+                    gameState = 'playing';
+                    gameOverlay.style.display = 'none';
+                    obito.jump();
+                    break;
+                case 'playing':
+                    obito.jump();
+                    break;
+                case 'gameOver':
+                    cancelAnimationFrame(loopId);
+                    initGame();
+                    break;
+            }
+        }
+
+        // Listeners
+        openGameBtn.addEventListener('click', () => {
+            gameModal.style.display = 'flex';
+            setTimeout(() => {
+                gameModal.classList.add('active');
+            }, 10);
+            initGame();
+        });
+
+        closeGameBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            gameModal.classList.remove('active');
+            setTimeout(() => {
+                gameModal.style.display = 'none';
+            }, 500);
+            cancelAnimationFrame(loopId);
+        });
+
+        canvas.addEventListener('mousedown', clickHandler);
+
+        // Prevent default space scrolling
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && gameModal.style.display === 'flex') {
+                e.preventDefault();
+                clickHandler();
+            }
+        });
     </script>
 </body>
 
