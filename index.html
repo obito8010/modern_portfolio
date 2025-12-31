@@ -504,13 +504,25 @@
         /* ========== SKILLS MARQUEE STYLES ========== */
         .skills-marquee-container {
             width: 100%;
-            overflow: hidden;
+            overflow-x: auto;
+            /* Allow manual scrolling */
+            overflow-y: hidden;
             position: relative;
             padding: 40px 0;
-            /* background: linear-gradient... removed as requested */
             mask-image: none;
-            /* Ensure no mask if used elsewhere */
             -webkit-mask-image: none;
+            cursor: grab;
+            /* Indicate scrollability */
+
+            /* Hide scrollbar for Firefox */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            /* IE and Edge */
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .skills-marquee-container::-webkit-scrollbar {
+            display: none;
         }
 
         .skills-track {
@@ -525,6 +537,10 @@
 
         .skills-marquee-container:hover .skills-track {
             animation-play-state: paused;
+        }
+
+        .skills-marquee-container:active {
+            cursor: grabbing;
         }
 
         @keyframes skill-scroll {
@@ -2311,7 +2327,7 @@
             <div class="skills-track">
                 <!-- Items will be duplicated by JS for seamless loop, but we list them once here -->
 
-                <!-- Frontend -->
+                <!-- Frontend & Mobile -->
                 <div class="skill-item">
                     <i class="fab fa-html5 skill-icon" style="color: #E34F26;"></i>
                     <span class="skill-name">HTML5</span>
@@ -2328,9 +2344,15 @@
                     <i class="fab fa-react skill-icon" style="color: #61DAFB;"></i>
                     <span class="skill-name">React</span>
                 </div>
+                <!-- Added jQuery -->
                 <div class="skill-item">
-                    <i class="fab fa-vuejs skill-icon" style="color: #4FC08D;"></i>
-                    <span class="skill-name">Vue.js</span>
+                    <i class="fas fa-code skill-icon" style="color: #0769AD;"></i>
+                    <span class="skill-name">jQuery</span>
+                </div>
+                <!-- Added AJAX -->
+                <div class="skill-item">
+                    <i class="fas fa-sync skill-icon" style="color: #28cf75;"></i>
+                    <span class="skill-name">AJAX</span>
                 </div>
                 <div class="skill-item">
                     <i class="fab fa-bootstrap skill-icon" style="color: #7952B3;"></i>
@@ -2340,34 +2362,32 @@
                     <i class="fas fa-wind skill-icon" style="color: #38B2AC;"></i>
                     <span class="skill-name">Tailwind</span>
                 </div>
-
-                <!-- Backend -->
+                <!-- Added Flutter -->
                 <div class="skill-item">
-                    <i class="fab fa-node skill-icon" style="color: #339933;"></i>
-                    <span class="skill-name">Node.js</span>
+                    <i class="fas fa-mobile-alt skill-icon" style="color: #02569B;"></i>
+                    <span class="skill-name">Flutter</span>
+                </div>
+
+                <!-- Backend & Languages -->
+                <!-- Added Java -->
+                <div class="skill-item">
+                    <i class="fab fa-java skill-icon" style="color: #007396;"></i>
+                    <span class="skill-name">Java</span>
                 </div>
                 <div class="skill-item">
                     <i class="fab fa-python skill-icon" style="color: #3776AB;"></i>
                     <span class="skill-name">Python</span>
                 </div>
                 <div class="skill-item">
-                    <i class="fab fa-php skill-icon" style="color: #777BB4;"></i>
-                    <span class="skill-name">PHP</span>
-                </div>
-                <div class="skill-item">
                     <i class="fas fa-database skill-icon" style="color: #00758F;"></i>
                     <span class="skill-name">MySQL</span>
-                </div>
-                <div class="skill-item">
-                    <i class="fas fa-leaf skill-icon" style="color: #47A248;"></i>
-                    <span class="skill-name">MongoDB</span>
                 </div>
                 <div class="skill-item">
                     <i class="fas fa-fire skill-icon" style="color: #FFCA28;"></i>
                     <span class="skill-name">Firebase</span>
                 </div>
 
-                <!-- Tools -->
+                <!-- Tools & Platforms -->
                 <div class="skill-item">
                     <i class="fab fa-git-alt skill-icon" style="color: #F05032;"></i>
                     <span class="skill-name">Git</span>
@@ -2376,9 +2396,25 @@
                     <i class="fab fa-github skill-icon" style="color: #181717;"></i>
                     <span class="skill-name">GitHub</span>
                 </div>
+                <!-- Added Android Studio -->
                 <div class="skill-item">
-                    <i class="fab fa-docker skill-icon" style="color: #2496ED;"></i>
-                    <span class="skill-name">Docker</span>
+                    <i class="fab fa-android skill-icon" style="color: #3DDC84;"></i>
+                    <span class="skill-name">Android Studio</span>
+                </div>
+                <!-- Added Jupyter -->
+                <div class="skill-item">
+                    <i class="fas fa-book skill-icon" style="color: #F37626;"></i>
+                    <span class="skill-name">Jupyter</span>
+                </div>
+                <!-- Added Colab -->
+                <div class="skill-item">
+                    <i class="fas fa-infinity skill-icon" style="color: #F9AB00;"></i>
+                    <span class="skill-name">Colab</span>
+                </div>
+                <!-- Added Vercel -->
+                <div class="skill-item">
+                    <i class="fas fa-caret-up skill-icon" style="color: #FFFFFF;"></i>
+                    <span class="skill-name">Vercel</span>
                 </div>
                 <div class="skill-item">
                     <i class="fas fa-terminal skill-icon" style="color: #4D4D4D;"></i>
@@ -2409,8 +2445,8 @@
     <!-- ========== GAME SECTION ========== -->
     <section id="game-section">
         <div class="section-header">
-            <h2>Ninja Flappy Adventure</h2>
-            <p>Help Obito navigate through the obstacles!</p>
+            <h2>Ninja Adventure</h2>
+            <p>Bored? Help Obito navigate through the obstacles!</p>
         </div>
 
         <div style="display: flex; justify-content: center;">
@@ -2501,7 +2537,7 @@
                         ai features.</p>
                     <div class="project-links">
                         <a href="javascript:void(0)" class="live"
-                            onclick="openModal('assets/videos/placeholder.gif')">Preview</a>
+                            onclick="openModal('assets/videos/collabrative_paintapp.gif')">Preview</a>
                         <a href="https://github.com/obito8010/Collaborative-Paint-App" class="code">View Code</a>
                     </div>
                 </div>
@@ -2610,7 +2646,8 @@
                     <div class="project-links">
                         <a href="javascript:void(0)" class="live"
                             onclick="openModal('preview-text:Preview available soon')">Preview</a>
-                        <a href="#" class="code">View Code</a>
+                        <a href="javascript:void(0)" class="code"
+                            onclick="openModal('preview-text:Code will be available soon in GitHub')">View Code</a>
                     </div>
                 </div>
             </div>
@@ -2773,7 +2810,7 @@
         <div class="game-container">
             <button class="game-close-btn" id="closeGameBtn">&times;</button>
             <canvas id="gameCanvas" width="400" height="600"></canvas>
-            <div class="game-overlay" id="gameOverlay">
+            <div class="game-overlay" id="gameOverlay" style="color: white;">
                 <h2 id="msgHeading">Tap to Start</h2>
                 <p id="msgScore"></p>
             </div>
@@ -2931,7 +2968,7 @@
             greetings: ["Hi there! I'm Chinmay's AI assistant. How can I help you?", "Hello! Welcome to the portfolio. Ask me anything!"],
             skills: "Chinmay is proficient in HTML5, CSS3, JavaScript, React, and UI/UX Design. He also dabbles in Game Dev!",
             projects: "Some recent projects include the Pixel Art Generator, Retro Space Adventure, and this Portfolio itself! Check out the Projects section for more.",
-            contact: "You can reach Chinmay at chinmay.saseendran@gmail.com or +91 9207525843.",
+            contact: "You can reach Chinmay at chinmay.saseendran@gmail.com.",
             about: "Chinmay is a passionate developer who loves blending technical skills with creative design. He enjoys pixel art and retro aesthetics.",
             default: "I'm not sure about that. Try asking about 'skills', 'projects', or 'contact'."
         };
@@ -3605,7 +3642,7 @@
 
             gameOverlay.style.display = 'block';
             msgHeading.innerText = "Get Ready!";
-            msgScore.innerText = "Tap/Space to Jump";
+            msgScore.innerText = "Tap to Jump | Double Tap = Double Jump";
         }
 
         function gameOver() {
